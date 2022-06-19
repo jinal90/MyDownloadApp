@@ -2,10 +2,62 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".DetailActivity"
+    tools:context=".MainActivity"
     tools:showIn="@layout/activity_detail">
+
+
+    <TextView
+        android:id="@+id/txt_name_label"
+        style="@style/textviewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="File name: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="File name: " />
+
+    <TextView
+        android:id="@+id/txt_status_label"
+        style="@style/textviewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_name_label"
+        tools:text="Status: " />
+
+    <TextView
+        android:id="@+id/txt_name_value"
+        style="@style/textviewStyleValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="some name"
+        app:layout_constraintStart_toEndOf="@id/txt_name_label"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="some name" />
+
+    <TextView
+        android:id="@+id/txt_status_value"
+        style="@style/textviewStyleValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Success"
+        app:layout_constraintStart_toStartOf="@id/txt_name_value"
+        app:layout_constraintTop_toBottomOf="@id/txt_name_value"
+        tools:text="Success" />
+
+    <Button
+        android:id="@+id/custom_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:text="ok"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
