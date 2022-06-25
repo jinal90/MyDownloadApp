@@ -26,26 +26,29 @@
         style="@style/textviewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="12dp"
         android:text="Status: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_name_label"
+        app:layout_constraintTop_toBottomOf="@id/txt_name_value"
+
         tools:text="Status: " />
 
     <TextView
         android:id="@+id/txt_name_value"
         style="@style/textviewStyleValue"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="some name"
         app:layout_constraintStart_toEndOf="@id/txt_name_label"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="some name" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_status_value"
         style="@style/textviewStyleValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="12dp"
         android:text="Success"
         app:layout_constraintStart_toStartOf="@id/txt_name_value"
         app:layout_constraintTop_toBottomOf="@id/txt_name_value"
