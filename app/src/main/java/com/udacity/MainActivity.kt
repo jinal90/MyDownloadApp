@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         custom_button.setOnClickListener {
 
+            custom_button.buttonState = ButtonState.Loading
             when (rg_downloadOptions.checkedRadioButtonId) {
                 R.id.rb_Glide -> download(URL_GLIDE)
                 R.id.rb_LoadApp -> download(URL_UDACITY_LOADAPP)
@@ -64,6 +65,7 @@ class MainActivity : AppCompatActivity() {
 
                     if (c.moveToFirst()) {
                         val status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS))
+                        custom_button.buttonState = ButtonState.Completed
                         if (status == DownloadManager.STATUS_SUCCESSFUL) {
                             // process download
                             val uri = c.getString(c.getColumnIndex("uri"))
