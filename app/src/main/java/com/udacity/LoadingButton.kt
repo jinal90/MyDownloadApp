@@ -16,25 +16,30 @@ import kotlin.properties.Delegates
 class LoadingButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
+    //Size
     private var w = 0
     private var h = 0
     private var textWidth = 0f
-
-    private var buttonText: String
-
     private var progressWidth = 0f
     private var progressCircle = 0f
 
+    //colors
     private val buttonColor = ContextCompat.getColor(context, R.color.colorPrimary)
     private val loadingColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
     private var circleColor = ContextCompat.getColor(context, R.color.colorAccent)
 
+    //text to display on the button
+    private var buttonText: String
+
+    // paint object for draw
+    private val paint = Paint().apply {
+        isAntiAlias = true
+        textSize = resources.getDimension(R.dimen.button_text_size)
+    }
+
     var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
         var valueAnimator = ValueAnimator()
         when (new) {
-            ButtonState.Clicked -> {
-                invalidate()
-            }
             ButtonState.Loading -> {
                 circleColor = ContextCompat.getColor(context, R.color.colorAccent)
                 buttonText = resources.getString(R.string.button_loading)
@@ -49,6 +54,7 @@ class LoadingButton @JvmOverloads constructor(
                     addListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator?) {
                             progressWidth = 0f
+                            progressCircle = 0f
                             if (buttonState == ButtonState.Loading) {
                                 buttonState = ButtonState.Loading
                             }
@@ -65,12 +71,10 @@ class LoadingButton @JvmOverloads constructor(
                 buttonText = getContext().getString(R.string.button_download)
                 invalidate()
             }
+            else -> {
+                //do nothing
+            }
         }
-    }
-
-    private val paint = Paint().apply {
-        isAntiAlias = true
-        textSize = resources.getDimension(R.dimen.button_text_size)
     }
 
     init {
