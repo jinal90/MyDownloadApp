@@ -20,16 +20,13 @@ class LoadingButton @JvmOverloads constructor(
     private var h = 0
     private var textWidth = 0f
 
-    private var textSize: Float = resources.getDimension(R.dimen.default_text_size)
-    private var circleXOffset = textSize / 2
-
     private var buttonText: String
 
     private var progressWidth = 0f
     private var progressCircle = 0f
 
-    private var buttonColor = ContextCompat.getColor(context, R.color.colorPrimary)
-    private var loadingColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
+    private val buttonColor = ContextCompat.getColor(context, R.color.colorPrimary)
+    private val loadingColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
     private var circleColor = ContextCompat.getColor(context, R.color.colorAccent)
 
     var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
@@ -39,11 +36,11 @@ class LoadingButton @JvmOverloads constructor(
                 invalidate()
             }
             ButtonState.Loading -> {
+                circleColor = ContextCompat.getColor(context, R.color.colorAccent)
                 buttonText = resources.getString(R.string.button_loading)
                 valueAnimator = ValueAnimator.ofFloat(0f, w.toFloat())
-                with(
-                    valueAnimator) {
-                    duration = 6000
+                with(valueAnimator) {
+                    duration = 4000
                     addUpdateListener { animation ->
                         progressWidth = animation.animatedValue as Float
                         progressCircle = (w.toFloat() / 365) * progressWidth
@@ -64,6 +61,7 @@ class LoadingButton @JvmOverloads constructor(
                 valueAnimator.cancel()
                 progressWidth = 0f
                 progressCircle = 0f
+                circleColor = buttonColor
                 buttonText = getContext().getString(R.string.button_download)
                 invalidate()
             }
@@ -72,7 +70,7 @@ class LoadingButton @JvmOverloads constructor(
 
     private val paint = Paint().apply {
         isAntiAlias = true
-        textSize = resources.getDimension(R.dimen.default_text_size)
+        textSize = resources.getDimension(R.dimen.button_text_size)
     }
 
     init {
@@ -97,9 +95,11 @@ class LoadingButton @JvmOverloads constructor(
                     paint
                 )
                 save()
-                translate(w / 2 + textWidth / 2 + circleXOffset, h / 2 - textSize / 2)
+                val circleXOffset = paint.textSize / 2
+                translate(w / 2 + textWidth / 2 + circleXOffset, h / 2 - paint.textSize / 2)
                 paint.color = circleColor
-                drawArc(RectF(0f, 0f, textSize, textSize), 0F, progressCircle * 0.365f, true, paint)
+                val oval = RectF(0f, 0f, paint.textSize, paint.textSize)
+                drawArc(oval, 0F, progressCircle, true, paint)
                 restore()
             }
         }
